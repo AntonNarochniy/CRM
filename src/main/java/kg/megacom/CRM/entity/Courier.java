@@ -12,7 +12,8 @@ public class Courier {
     private String fio;
     @Column(name = "phone")
     private String phone;
-    @Column(name = "couriers_status_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "courier_status_id")
     private CouriersStatus couriersStatusId;
 
     public Courier() {

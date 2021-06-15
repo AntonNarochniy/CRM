@@ -14,25 +14,28 @@ public class Test {
 
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Admin.class)
-                //.addAnnotatedClass(CouriersStatus.class)
-                .addAnnotatedClass(OrderStatus.class)
+                //.addAnnotatedClass(Admin.class)
+                .addAnnotatedClass(CouriersStatus.class)
+                //.addAnnotatedClass(OrderStatus.class)
                 .addAnnotatedClass(Courier.class)
                 .buildSessionFactory();
 
         Session session = factory.getCurrentSession();
         try {
 
-            CouriersStatus couriersStatus = new CouriersStatus("Уволен");
 
-            Courier courier = new Courier("Петя", "996555505505", couriersStatus);
+
+
             session.beginTransaction();
+            CouriersStatus couriersStatus = session.get(CouriersStatus.class, 1);
+            Courier courier = new Courier("Dfcz", "996555505506", couriersStatus);
             session.save(couriersStatus);
             session.save(courier);
             session.close();
 
         }
         finally {
+            session.close();
             factory.close();
         }
 
